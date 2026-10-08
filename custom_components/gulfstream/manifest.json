@@ -1,12 +1,12 @@
 {
   "domain": "gulfstream",
   "name": "Gulfstream Pool Heater",
-  "codeowners": ["@YOUR_GITHUB_USERNAME"],
+  "codeowners": ["@siobhanbaynes"],
   "config_flow": true,
-  "documentation": "https://github.com/YOUR_GITHUB_USERNAME/ha-gulfstream",
+  "documentation": "https://github.com/siobhanbaynes/ha-gulfstream",
   "integration_type": "hub",
   "iot_class": "cloud_polling",
-  "issue_tracker": "https://github.com/YOUR_GITHUB_USERNAME/ha-gulfstream/issues",
+  "issue_tracker": "https://github.com/siobhanbaynes/ha-gulfstream/issues",
   "requirements": [],
   "version": "0.1.0"
 }
