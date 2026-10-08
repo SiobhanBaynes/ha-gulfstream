@@ -27,7 +27,7 @@ on/off — by talking to the same cloud API the official mobile app uses.
 ### HACS (recommended)
 
 1. In HACS → **Integrations** → ⋮ → **Custom repositories**, add
-   `https://github.com/YOUR_GITHUB_USERNAME/ha-gulfstream` with category
+   `https://github.com/siobhanbaynes/ha-gulfstream` with category
    **Integration**.
 2. Install **Gulfstream Pool Heater**, then restart Home Assistant.
 
@@ -92,7 +92,7 @@ risk — mind your equipment's safe operating limits.
 
 ## Before you publish this repo
 
-- [ ] Replace `YOUR_GITHUB_USERNAME` in `manifest.json`, `README.md` and `info.md`.
+- [ ] Replace `siobhanbaynes` in `manifest.json`, `README.md` and `info.md`.
 - [ ] Set your name/year in `LICENSE`.
 - [ ] (For HACS default inclusion) add the brand to home-assistant/brands and
       ensure the repo has a description, topics, and the validation workflow green.

@@ -8,5 +8,5 @@ This is a **cloud** integration — the module has no local API — reproducing 
 mobile app's calls to the vendor cloud. Set it up from the UI with your app
 username and password.
 
-See the [README](https://github.com/YOUR_GITHUB_USERNAME/ha-gulfstream) for
+See the [README](https://github.com/siobhanbaynes/ha-gulfstream) for
 details and the reverse-engineered protocol notes.
