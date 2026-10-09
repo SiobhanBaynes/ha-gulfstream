@@ -35,7 +35,14 @@ MANUFACTURER: Final = "GulfStream"
 #   30 FLT   fault/flags          (app writes 0)
 #   31 RSFL  reset-filter flag    (app writes 0)
 #   32 RSWF  reset-waterflow flag (app writes 0)
-#   33 MD    mode/power           (INFERRED: 0=off, 1=heat)
+#   33 MD    operating mode enum  (0=off, 1=pool heat, 2=spa)
+#
+# ``MD`` is a mode value, not a boolean. Observed values (looks bitmask-like,
+# bits are not contiguous):
+#   0 = off        CONFIRMED (device reports MD=0 when switched off)
+#   1 = pool heat  CONFIRMED (device reports MD=1 while in pool heat)
+#   4 = spa        CONFIRMED (device reports MD=4 when spa selected in the app)
+#   (value 2 / other bits unobserved — possibly cool or another function)
 #
 # When writing a setpoint/mode the app always sends the full 7-register block
 # starting at 27, so we replicate that exact behaviour.
@@ -44,16 +51,27 @@ REG_SETPOINT_BLOCK_LEN: Final = 7
 
 # currentState field keys.
 KEY_SETPOINT: Final = "RSV1"          # pool heat setpoint
-KEY_SETPOINT_SPA: Final = "RSV2"      # spa setpoint (preserved on write)
-KEY_MODE: Final = "MD"                # 0=off, 1=heat (inferred)
+KEY_SETPOINT_SPA: Final = "RSV2"      # spa setpoint
+KEY_MODE: Final = "MD"                # operating mode enum (see below)
 KEY_CURRENT_TEMP: Final = "LCS"       # current water temperature (inferred)
 KEY_MIN_SETPOINT: Final = "MNH"       # minimum allowed setpoint
 KEY_MAX_SETPOINT: Final = "MXH"       # maximum allowed setpoint
 KEY_UNITS: Final = "CF"               # 0 = Fahrenheit, 1 = Celsius (inferred)
 
-# Mode values written to register 33 (MD).
-MODE_OFF: Final = 0
-MODE_HEAT: Final = 1
+# Operating-mode enum values written to register 33 (MD).
+MODE_OFF: Final = 0        # CONFIRMED
+MODE_POOL: Final = 1       # CONFIRMED (pool heat)
+MODE_SPA: Final = 4        # CONFIRMED (spa)
+
+# Home Assistant preset names used to pick the active heating mode.
+PRESET_POOL: Final = "pool"
+PRESET_SPA: Final = "spa"
+
+# Which setpoint register each heating mode uses.
+MODE_SETPOINT_KEY: Final = {
+    MODE_POOL: KEY_SETPOINT,      # RSV1
+    MODE_SPA: KEY_SETPOINT_SPA,   # RSV2
+}
 
 # Fallback setpoint limits if the device does not report them.
 DEFAULT_MIN_TEMP_F: Final = 50

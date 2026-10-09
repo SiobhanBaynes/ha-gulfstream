@@ -65,16 +65,20 @@ data = [RSV1(pool setpoint), RSV2(spa setpoint), 0, 0, 0, 0, MD(mode)]
 | 27 | `RSV1` | pool heat setpoint | ✅ confirmed |
 | 28 | `RSV2` | spa setpoint | ✅ confirmed |
 | 29–32 | `RSV3`/`FLT`/`RSFL`/`RSWF` | reset/flag bytes (written as 0) | ✅ confirmed |
-| 33 | `MD` | mode: `0` = off, `1` = heat | ⚠️ inferred |
+| 33 | `MD` | mode: `0` = off, `1` = pool heat, `4` = spa (looks bitmask-like) | ✅ confirmed |
 | — | `LCS` | current water temperature | ⚠️ inferred |
 | — | `MNH`/`MXH` | min / max setpoint | ✅ confirmed |
 | — | `CF` | units: `0` = °F, `1` = °C | ⚠️ inferred |
 
+Spa mode uses the `RSV2` setpoint; pool heat uses `RSV1`. The `MD` values are
+non-contiguous (`1`, `4`), which suggests a bitmask — the value `2` (and other
+bits) were not observed and may correspond to cool or another function.
+
 > [!WARNING]
-> The **mode (`MD`)**, **current-temp (`LCS`)** and **units (`CF`)** mappings are
-> inferred from observed traffic, not official documentation. Setpoint control is
-> confirmed. If on/off behaves unexpectedly for your model, please open an issue
-> with a capture of the app toggling the heater — see below.
+> The **current-temp (`LCS`)** and **units (`CF`)** mappings are inferred from
+> observed traffic, not official documentation. Setpoint and mode (off / pool /
+> spa) control are confirmed against a real device. If something behaves
+> unexpectedly for your model, please open an issue with a capture — see below.
 
 ### Helping extend the register map
 
