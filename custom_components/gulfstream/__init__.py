@@ -10,7 +10,11 @@ from .api import GulfstreamApi
 from .const import CONF_PASSWORD, CONF_USERNAME
 from .coordinator import GulfstreamConfigEntry, GulfstreamCoordinator
 
-PLATFORMS: list[Platform] = [Platform.CLIMATE]
+PLATFORMS: list[Platform] = [
+    Platform.CLIMATE,
+    Platform.SENSOR,
+    Platform.BINARY_SENSOR,
+]
 
 
 async def async_setup_entry(

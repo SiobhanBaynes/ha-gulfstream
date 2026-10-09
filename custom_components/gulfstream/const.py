@@ -57,6 +57,7 @@ KEY_CURRENT_TEMP: Final = "LCS"       # current water temperature (inferred)
 KEY_MIN_SETPOINT: Final = "MNH"       # minimum allowed setpoint
 KEY_MAX_SETPOINT: Final = "MXH"       # maximum allowed setpoint
 KEY_UNITS: Final = "CF"               # 0 = Fahrenheit, 1 = Celsius (inferred)
+KEY_FAULT: Final = "FLT"              # fault flag: 0 = ok, non-zero = fault (inferred)
 
 # Operating-mode enum values written to register 33 (MD).
 MODE_OFF: Final = 0        # CONFIRMED

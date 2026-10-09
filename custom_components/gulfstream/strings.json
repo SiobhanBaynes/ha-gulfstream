@@ -33,6 +33,24 @@
       "heater": {
         "name": "Pool heater"
       }
+    },
+    "sensor": {
+      "water_temperature": { "name": "Water temperature" },
+      "pool_setpoint": { "name": "Pool setpoint" },
+      "spa_setpoint": { "name": "Spa setpoint" },
+      "mode": {
+        "name": "Mode",
+        "state": {
+          "off": "Off",
+          "pool": "Pool heat",
+          "spa": "Spa",
+          "unknown": "Unknown"
+        }
+      }
+    },
+    "binary_sensor": {
+      "connectivity": { "name": "Connectivity" },
+      "fault": { "name": "Fault" }
     }
   }
 }

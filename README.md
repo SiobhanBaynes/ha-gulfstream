@@ -18,7 +18,9 @@ on/off — by talking to the same cloud API the official mobile app uses.
 
 - 🌡️ **Current water temperature** (read)
 - 🎯 **Target setpoint** (read/write) with the device's own min/max limits
-- 🔌 **On / Off** via HVAC mode (`heat` / `off`)
+- 🔌 **Off / Pool heat / Spa** via HVAC mode (`off` / `heat`) + Pool/Spa presets
+- 📊 Extra entities: water-temperature sensor, pool & spa setpoint (diagnostic),
+  mode sensor, plus connectivity and fault binary sensors
 - 🔁 Polls every 60 seconds; re-authenticates automatically if the token expires
 - ⚙️ UI config flow (no YAML)
 
