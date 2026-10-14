@@ -60,8 +60,7 @@ class GulfstreamClimate(CoordinatorEntity[GulfstreamCoordinator], ClimateEntity)
     """
 
     _attr_has_entity_name = True
-    _attr_name = None
-    _attr_translation_key = "heater"
+    _attr_name = None  # primary entity: inherits the device name, no name of its own
     _attr_target_temperature_step = 1.0
     _attr_hvac_modes = [HVACMode.OFF, HVACMode.HEAT]
     _attr_preset_modes = [PRESET_POOL, PRESET_SPA]
