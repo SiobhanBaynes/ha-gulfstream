@@ -65,6 +65,38 @@ class GulfstreamConfigFlow(ConfigFlow, domain=DOMAIN):
             step_id="user", data_schema=STEP_USER_SCHEMA, errors=errors
         )
 
+    async def async_step_reconfigure(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
+        """Change the account this entry uses (e.g. switch to a shared account)."""
+        errors: dict[str, str] = {}
+        entry = self._get_reconfigure_entry()
+        if user_input is not None:
+            username = user_input[CONF_USERNAME]
+            password = user_input[CONF_PASSWORD]
+            new_unique_id = username.lower()
+            if any(
+                other.entry_id != entry.entry_id
+                and other.unique_id == new_unique_id
+                for other in self._async_current_entries()
+            ):
+                return self.async_abort(reason="already_configured")
+            error = await self._validate(username, password)
+            if error is None:
+                await self.async_set_unique_id(new_unique_id)
+                return self.async_update_reload_and_abort(
+                    entry, data=user_input, unique_id=new_unique_id
+                )
+            errors["base"] = error
+
+        return self.async_show_form(
+            step_id="reconfigure",
+            data_schema=self.add_suggested_values_to_schema(
+                STEP_USER_SCHEMA, {CONF_USERNAME: entry.data[CONF_USERNAME]}
+            ),
+            errors=errors,
+        )
+
     async def async_step_reauth(
         self, entry_data: Mapping[str, Any]
     ) -> ConfigFlowResult:
