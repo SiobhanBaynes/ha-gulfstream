@@ -38,11 +38,6 @@
     }
   },
   "entity": {
-    "climate": {
-      "heater": {
-        "name": "Pool heater"
-      }
-    },
     "sensor": {
       "water_temperature": { "name": "Water temperature" },
       "pool_setpoint": { "name": "Pool setpoint" },
