@@ -15,6 +15,14 @@
         "data": {
           "password": "Password"
         }
+      },
+      "reconfigure": {
+        "title": "Change account",
+        "description": "Sign in with a different GulfStream account for this heater (for example a dedicated account shared to Home Assistant). Use a separate account from the mobile app to avoid being logged out.",
+        "data": {
+          "username": "Username",
+          "password": "Password"
+        }
       }
     },
     "error": {
@@ -25,7 +33,8 @@
     },
     "abort": {
       "already_configured": "This account is already configured.",
-      "reauth_successful": "Re-authentication was successful."
+      "reauth_successful": "Re-authentication was successful.",
+      "reconfigure_successful": "Account updated successfully."
     }
   },
   "entity": {

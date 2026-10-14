@@ -41,8 +41,27 @@ Copy `custom_components/gulfstream` into your Home Assistant
 ## Configuration
 
 **Settings → Devices & Services → Add Integration → Gulfstream Pool Heater**, and
-sign in with the same username/password you use in the mobile app. A climate
-entity is created for each heater on the account.
+sign in with your GulfStream / Compass account. A climate entity (plus sensors)
+is created for each heater on the account.
+
+To change the account later (for example to switch to a dedicated account, see
+below), use **⋮ → Reconfigure** on the integration — no need to delete it.
+
+## ⚠️ Use a dedicated account (important)
+
+The GulfStream cloud allows **only one active login session per account**. If
+Home Assistant signs in with the **same** account you use in the Compass mobile
+app, the two will continually log each other out — the app shows errors like
+*"Error occurred. Please try again later. (04)"* and HA may drop its connection.
+
+**Fix: give Home Assistant its own account.**
+
+1. Create a second account (the app's **Sign up**), e.g. `youraddress+ha@…`.
+2. In the Compass app, open the heater's **Settings → Share** and share it to the
+   second account by entering that account's login.
+3. Add (or **Reconfigure**) this integration using the **second** account.
+
+Now HA holds its own session and your phone app keeps yours, with no conflict.
 
 ## How it works / protocol notes
 
