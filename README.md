@@ -28,10 +28,16 @@ on/off — by talking to the same cloud API the official mobile app uses.
 
 ### HACS (recommended)
 
-1. In HACS → **Integrations** → ⋮ → **Custom repositories**, add
-   `https://github.com/siobhanbaynes/ha-gulfstream` with category
-   **Integration**.
-2. Install **Gulfstream Pool Heater**, then restart Home Assistant.
+1. Open **HACS**, search for **Gulfstream Pool Heater**, and download it.
+2. Restart Home Assistant.
+
+<details>
+<summary>Not yet in the HACS default store? Add it as a custom repository</summary>
+
+In HACS → ⋮ → **Custom repositories**, add
+`https://github.com/siobhanbaynes/ha-gulfstream` with category **Integration**,
+then download **Gulfstream Pool Heater** and restart Home Assistant.
+</details>
 
 ### Manual
 
@@ -114,10 +120,3 @@ Not affiliated with, endorsed by, or supported by GulfStream or the makers of th
 Compass/CaptouchWiFi app. Uses an undocumented API that may change at any time.
 Provided as-is under the MIT license. Controlling heating equipment is at your own
 risk — mind your equipment's safe operating limits.
-
-## Before you publish this repo
-
-- [ ] Replace `siobhanbaynes` in `manifest.json`, `README.md` and `info.md`.
-- [ ] Set your name/year in `LICENSE`.
-- [ ] (For HACS default inclusion) add the brand to home-assistant/brands and
-      ensure the repo has a description, topics, and the validation workflow green.

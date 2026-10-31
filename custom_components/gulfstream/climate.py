@@ -12,6 +12,7 @@ from homeassistant.components.climate import (
 )
 from homeassistant.const import ATTR_TEMPERATURE, UnitOfTemperature
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -112,14 +113,27 @@ class GulfstreamClimate(CoordinatorEntity[GulfstreamCoordinator], ClimateEntity)
         rsv2: int | None = None,
         mode: int | None = None,
     ) -> None:
-        """Write the 27..33 block, keeping unspecified values at their current state."""
-        current_rsv1 = self._reg(KEY_SETPOINT, DEFAULT_MIN_TEMP_F)
-        current_rsv2 = self._reg(KEY_SETPOINT_SPA, DEFAULT_MIN_TEMP_F)
+        """Write the 27..33 block, keeping unspecified values at their current state.
+
+        The write always sends the full pool/spa setpoint + mode block, so any
+        value we are not explicitly changing must be preserved from the current
+        state. If the device has not reported those registers yet (empty or
+        partial ``currentState``), writing would clobber them with defaults, so
+        refuse the command instead.
+        """
+        current_rsv1 = self._reg(KEY_SETPOINT)
+        current_rsv2 = self._reg(KEY_SETPOINT_SPA)
+        current_mode = self._reg(KEY_MODE)
+        if current_rsv1 is None or current_rsv2 is None or current_mode is None:
+            raise HomeAssistantError(
+                "The heater has not reported its current state yet; "
+                "please try again in a moment."
+            )
         await self.coordinator.api.async_write_setpoint_and_mode(
             self._key,
             setpoint=current_rsv1 if rsv1 is None else rsv1,
             spa_setpoint=current_rsv2 if rsv2 is None else rsv2,
-            mode=self._mode if mode is None else mode,
+            mode=current_mode if mode is None else mode,
         )
         await self.coordinator.async_request_refresh()
 
